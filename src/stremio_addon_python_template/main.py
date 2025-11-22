@@ -125,4 +125,6 @@ if __name__ == "__main__":
     # We pass the module path to uvicorn, which loads the global 'app' instance.
     # Uvicorn will use the port provided by the command line (via Makefile) or its default (8000).
     # Since we use the Makefile to explicitly pass the PORT, this is clean.
-    uvicorn.run("stremio_addon.main:app", host="0.0.0.0", port=settings.PORT, reload=True)
+    uvicorn.run(
+        "stremio_addon_python_template.main:app", host="0.0.0.0", port=settings.PORT, reload=True
+    )

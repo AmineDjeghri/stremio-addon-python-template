@@ -53,3 +53,11 @@ ignore = ["D100", "D101", "D102", "D103", "D104", "D107", "D417"]
 [tool.ruff.pydocstyle]
 # Use Google-style docstrings.
 convention = "google"
+
+# Build configuration to make this an installable package
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/stremio_addon_python_template"]
