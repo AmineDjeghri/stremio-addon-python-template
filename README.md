@@ -1,0 +1,1 @@
+# stremio-addon-python-template
