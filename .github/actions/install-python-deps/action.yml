@@ -1,0 +1,10 @@
+name: 'Install Python Dependencies'
+description: 'Install Python dependencies using uv and make'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install uv and Python dependencies
+      shell: bash
+      run: |
+        make install-package
