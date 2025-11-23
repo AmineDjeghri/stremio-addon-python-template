@@ -2,9 +2,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
-from loguru import logger
 
-from stremio_addon_python_template import settings
+from stremio_addon_python_template import settings, logger
 
 # Import the new settings module
 

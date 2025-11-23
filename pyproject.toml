@@ -8,11 +8,11 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = [
-    "fastapi==0.121.*",
-    "uvicorn==0.38.*",
-    "pydantic-settings==2.12.*",
+    "fastapi==0.121.3",
+    "uvicorn==0.38.0",
+    "pydantic-settings==2.12.0",
     "httpx==0.28.1",
-    "loguru==0.7.*",
+    "loguru==0.7.3",
 
     #    "redis==7.1.0"
 ]
@@ -22,19 +22,19 @@ dependencies = [
 # if you add new dependencies here, make sure to add them to [tool.uv] default-groups up above
 dev = [
     "pytest == 9.0.1",
-    "pytest-asyncio == 1.3.*",
-    "pre-commit == 4.5.*",
-    "ruff==0.14.*"
+    "pytest-asyncio == 1.3.0",
+    "pre-commit == 4.5.0",
+    "ruff==0.14.6"
 ]
 docs = [
-    "mkdocs == 1.6.*",
-    "mkdocs-material>=9.7.0",
-    "mkdocstrings>=0.30.1",
-    "mkdocs-mermaid2-plugin>=1.2.3",
-    "mkdocs-gen-files>=0.5.0",
-    "mkdocstrings-python",
-    "mkdocs-same-dir",
-    "mkdocs-exclude"
+    "mkdocs == 1.6.1",
+    "mkdocs-material==9.7.0",
+    "mkdocstrings==0.30.1",
+    "mkdocs-mermaid2-plugin==1.2.3",
+    "mkdocs-gen-files==0.5.0",
+    "mkdocstrings-python==1.19.0",
+    "mkdocs-same-dir==0.1.3",
+    "mkdocs-exclude==1.0.2"
 ]
 
 ############### pytest configuration
