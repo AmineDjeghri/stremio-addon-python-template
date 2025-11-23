@@ -208,3 +208,5 @@ __marimo__/
 
 # github actions local (act)
 bin/act
+
+cloudflared*

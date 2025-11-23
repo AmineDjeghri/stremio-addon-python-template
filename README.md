@@ -62,6 +62,7 @@ Tests (tests): Unit tests for API endpoints using pytest.
 - [x] Logging using loguru (with colors)
 - [x] Pytest for unit tests
 - [x] Dockerized project (Dockerfile) both for development and production
+- [x] NiceGUI configuration page for easy addon setup
 - [ ] (need to separate the files) Make commands to handle everything for you: install, run, test
 - [ ] Caddy for HTTPS (Stremio requires HTTPS)
 
@@ -105,9 +106,21 @@ cd stremio-addon-python-template`
 
 ### 1.3 Usage
 
-- Start the server: ``make run`` or with `uv run src/stremio_addon_python_template/main.py`
-- You can access the addon at http://127.0.0.1:7000/manifest.json
-- You can access the API at http://127.0.0.1:7000/docs
+- Start the server with either
+  - ``make run`` or with `uv run src/stremio_addon_python_template/main.py`
+
+- You will se the following image : ![ui_image.png](assets/ui_image.png)
+
+- **Configuration Page**: Visit http://127.0.0.1:7000/ or http://127.0.0.1:7000/configure to access the NiceGUI configuration interface where you can:
+  - Enter your API key
+  - Configure addon settings
+  - View the manifest URL for Stremio installation
+
+- **Manifest**: Access the addon manifest at http://127.0.0.1:7000/manifest.json, you will see:
+```json
+{"id":"","version":"1.0.0","name":"Python UV Template","description":"A sample addon built with Python, FastAPI and UV with Pydantic Settings","logo":"https://dl.strem.io/addon-logo.png","resources":["stream","catalog"],"types":["movie","series"],"catalogs":[{"type":"movie","id":"python_movies","name":"Python Examples"}],"idPrefixes":["tt"]}
+```
+- **API Documentation**: Access the FastAPI docs at http://127.0.0.1:7000/docs
 
 To use the addon in stremio for testing, you need to use cloudflare, or localtunnel or caddy because Stremio requires HTTPS.
 - Install once
@@ -120,8 +133,19 @@ sudo dpkg -i cloudflared-linux-amd64.deb
 `cloudflared tunnel --url http://localhost:7000`
 
 This gives you a URL like https://random.trycloudflare.com/
-- Paste it in your browser first to make sure it works.
+- Paste it in your browser first to make sure it works, for example: https://updated-occupations-florists-swing.trycloudflare.com/manifest.json
 - Open Stremio and add the Addon.
+- ![stremio_addon_img.png](assets/stremio_addon_img.png)
+- Scroll down in the Board where you have your catalogs, you will see your addon.
+- ![catalog_img.png](assets/catalog_img.png)
+- Everytime you restart your cloudflared, a new URL is generated, so you need to add the new url to stremio.
+
+All the URLs:
+✅ http://127.0.0.1:7000/ → redirects to /configure
+✅ http://127.0.0.1:7000/configure → NiceGUI configuration page
+✅ http://127.0.0.1:7000/manifest.json → addon manifest
+✅ http://127.0.0.1:7000/catalog/{type}/{id}.json → catalog endpoint
+✅ http://127.0.0.1:7000/stream/{type}/{id}.json → stream endpoint
 
 #### Check the documentation
 You can check the documentation (website).

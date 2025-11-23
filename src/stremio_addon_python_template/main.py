@@ -2,18 +2,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
+from nicegui import ui
 
 from stremio_addon_python_template import settings, logger
 
-# Import the new settings module
-
-
-# 1. Configuration Logging
-# ------------------------
-
-
-# ----------------
-# This tells Stremio what your addon can do. Configuration pulled from settings.
+# Stremio Addon Manifest - defines addon capabilities
 MANIFEST = {
     "id": settings.ADDON_ID,
     "version": "1.0.0",
@@ -26,12 +19,9 @@ MANIFEST = {
     "idPrefixes": ["tt"],
 }
 
-# Use the app title from Pydantic settings if needed, otherwise keep default
 app = FastAPI(title="Stremio Python Addon", version="1.0.0")
 
-# 3. CORS Middleware
-# ------------------
-# Crucial: Stremio web players run in the browser and need CORS enabled.
+# CORS Middleware - required for Stremio web players
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -41,15 +31,51 @@ app.add_middleware(
 )
 
 
-# 4. Routes
-# ---------
-
-
 @app.get("/", include_in_schema=False)
 async def root():
-    """Root endpoint: Redirects to the manifest."""
-    logger.info("Redirecting to manifest.")
-    return RedirectResponse(url="/manifest.json")
+    """Root endpoint: Redirects to the configuration page."""
+    logger.info("Redirecting to configure page.")
+    return RedirectResponse(url="/configure")
+
+
+# NiceGUI Configuration Page (we use here ui.page instead of @app.get)
+@ui.page("/configure")
+def configure_page():
+    """Configuration page with NiceGUI interface."""
+    logger.info("Configure page accessed.")
+
+    with ui.card().classes("w-full max-w-md mx-auto mt-10 p-6"):
+        ui.label("Stremio Addon Configuration").classes("text-2xl font-bold mb-4")
+        ui.label("Configure your addon settings below:").classes("text-gray-600 mb-4")
+
+        api_key_input = ui.input(
+            label="API Key",
+            placeholder="Enter your API key here",
+            password=True,
+            password_toggle_button=True,
+        ).classes("w-full mb-4")
+
+        addon_name_input = ui.input(
+            label="Addon Name", placeholder="My Custom Addon", value="Python UV Template"
+        ).classes("w-full mb-4")
+
+        def save_config():
+            logger.info(f"Configuration saved: Addon Name={addon_name_input.value}")
+            ui.notify("Configuration saved successfully!", type="positive")
+
+        with ui.row().classes("w-full gap-2"):
+            ui.button("Save Configuration", on_click=save_config).props("color=primary")
+            ui.link("View Manifest", "/manifest.json", new_tab=True).classes(
+                "q-btn q-btn-item non-selectable no-outline q-btn--flat q-btn--rectangle bg-secondary text-white q-btn--actionable q-focusable q-hoverable"
+            )
+
+        ui.separator().classes("my-4")
+
+        ui.label("Installation").classes("text-lg font-semibold mb-2")
+        ui.label(
+            f"Add this addon to Stremio (change the localhost to your cloudflared address) :"
+        ).classes("text-sm text-gray-600 mb-2")
+        ui.code(f"http://127.0.0.1:{settings.PORT}/manifest.json").classes("w-full")
 
 
 @app.get("/manifest.json")
@@ -61,7 +87,7 @@ async def get_manifest():
 
 @app.get("/catalog/{type}/{id}.json")
 async def get_catalog(type: str, id: str):
-    """(Optional) Displays a list of items on the Stremio Board."""
+    """Returns catalog items displayed on the Stremio Board."""
     logger.debug(f"Catalog request: Type={type}, ID={id}")
     if type == "movie" and id == "python_movies":
         return {
@@ -86,12 +112,10 @@ async def get_catalog(type: str, id: str):
 
 @app.get("/stream/{type}/{id}.json")
 async def get_stream(type: str, id: str):
-    """THE CORE LOGIC: Returns stream links for a specific video."""
+    """Returns stream links for a specific video."""
     logger.info(f"Stream request: Type={type}, ID={id}")
 
     streams = []
-
-    # Logic to handle specific movies
 
     if id == "tt1254207":  # Big Buck Bunny
         streams.append(
@@ -111,19 +135,18 @@ async def get_stream(type: str, id: str):
         )
 
     logger.debug(f"Returning {len(streams)} streams.")
-    # Always return a dictionary with a "streams" list
     return {"streams": streams}
 
 
-# 5. Entry Point
-# --------------
+# Initialize NiceGUI with FastAPI (must be after all routes are defined)
+ui.run_with(app, storage_secret="stremio-addon-secret-key")
+
+
+# Entry Point
 if __name__ == "__main__":
     logger.info(f"Starting server with ADDON_ID: {settings.ADDON_ID}")
     logger.info(f"Addon running on http://127.0.0.1:{settings.PORT}")
     logger.info(f"Install URL: http://127.0.0.1:{settings.PORT}/manifest.json")
-    # We pass the module path to uvicorn, which loads the global 'app' instance.
-    # Uvicorn will use the port provided by the command line (via Makefile) or its default (8000).
-    # Since we use the Makefile to explicitly pass the PORT, this is clean.
     uvicorn.run(
         "stremio_addon_python_template.main:app", host="0.0.0.0", port=settings.PORT, reload=True
     )

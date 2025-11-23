@@ -38,8 +38,8 @@ repos:
       hooks:
         -   id: detect-secrets
             args: ['--exclude-files', 'notebook.ipynb',
-                   '--exclude-secrets','YOUR_API_KEY|YOUR_KEY',
-                   '--exclude-lines','infoHash.*c352d6801679cb6561060988a89458f6728b4377'
+                   '--exclude-secrets','stremio-addon-secret-key|YOUR_API_KEY|YOUR_KEY',
+                   '--exclude-lines','infoHash.*c352d6801679cb6561060988a89458f6728b4377',
             ]
 
 #  - repo: https://github.com/compilerla/conventional-pre-commit
