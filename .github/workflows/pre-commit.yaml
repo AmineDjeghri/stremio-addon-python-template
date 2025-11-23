@@ -5,16 +5,7 @@ on:
 
 jobs:
   pre-commit:
-    name: Pre-commit
-    runs-on: self-hosted
-    steps:
-      - name: Check Out
-        uses: actions/checkout@v4
-
-      - name: Install Python Dependencies
-        uses: ./.github/actions/install-python-deps
-
-      - name: Run Pre-commit
-        shell: bash
-        run: |
-          make pre-commit
+    uses: ./.github/workflows/_base-job.yaml
+    with:
+      job-name: 'Pre-commit'
+      command: 'make pre-commit'

@@ -5,18 +5,8 @@ on:
 
 jobs:
   deploy-github-pages:
-    name: Deploy GitHub Pages
-    runs-on: self-hosted
-    steps:
-      - name: Check Out
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install Python Dependencies
-        uses: ./.github/actions/install-python-deps
-
-      - name: Deploy Docs
-        shell: bash
-        run: |
-          make deploy-doc-gh
+    uses: ./.github/workflows/_base-job.yaml
+    with:
+      job-name: 'Deploy GitHub Pages'
+      command: 'make deploy-doc-gh'
+      fetch-depth: 0

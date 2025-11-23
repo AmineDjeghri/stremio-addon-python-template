@@ -5,37 +5,13 @@ on:
 
 jobs:
   publish-wheel:
-    name: Build and Publish Wheel (Draft)
-    runs-on: self-hosted
-    steps:
-      - name: Check Out
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+    uses: ./.github/workflows/_base-job.yaml
+    with:
+      job-name: 'Build and Publish Wheel (Draft)'
+      command: 'make build-package'
+      fetch-depth: 0
 
-      - name: Install Python Dependencies
-        uses: ./.github/actions/install-python-deps
-
-
-      - name: Build Wheel
-        shell: bash
-        run: |
-          make build-package
-
-      # TODO: Publish the built wheel to a GitHub Release asset
-      # Notes:
-      # - You can use actions/upload-artifact to collect the wheel from ./dist
-      # - Then use softprops/action-gh-release or actions/upload-release-asset to attach it to the release
-      # - Consider signing the artifact if required by policy
-      #- name: Upload Wheel Artifact
-      #  uses: actions/upload-artifact@v4
-      #  with:
-      #    name: wheel
-      #    path: dist/*.whl
-
-      #- name: Attach Wheel to Release
-      #  uses: softprops/action-gh-release@v2
-      #  with:
-      #    files: dist/*.whl
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  # TODO: Add artifact upload and release steps
+  # - Use actions/upload-artifact to collect the wheel from ./dist
+  # - Use softprops/action-gh-release to attach it to the release
+  # - Consider signing the artifact if required by policy
