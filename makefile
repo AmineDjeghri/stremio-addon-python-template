@@ -146,9 +146,3 @@ deploy-doc-local: ## Deploy documentation locally
 deploy-doc-gh: ## Deploy documentation in github actions
 	@echo "${YELLOW}Deploying documentation in github actions..${NC}"
 	@$(UV) run mkdocs build && $(UV) run mkdocs gh-deploy
-
-
-######## Caddy ########
-caddy: ## Run Caddy
-	@echo "${YELLOW}Running Caddy...${NC}"
-	@caddy run --config Caddyfile --watch
