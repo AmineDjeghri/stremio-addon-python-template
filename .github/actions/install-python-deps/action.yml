@@ -7,4 +7,4 @@ runs:
     - name: Install uv and Python dependencies
       shell: bash
       run: |
-        make install-package
+        make install-dev
