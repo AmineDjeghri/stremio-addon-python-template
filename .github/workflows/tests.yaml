@@ -20,4 +20,3 @@ jobs:
         shell: bash
         run: |
           make test
-
