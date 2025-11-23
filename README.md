@@ -62,14 +62,15 @@ Tests (tests): Unit tests for API endpoints using pytest.
 - [x] Logging using loguru (with colors)
 - [x] Pytest for unit tests
 - [x] Dockerized project (Dockerfile) both for development and production
-- [x] Make commands to handle everything for you: install, run, test
+- [ ] (need to separate the files) Make commands to handle everything for you: install, run, test
+- [ ] Caddy for HTTPS (Stremio requires HTTPS)
 
 **CI/CD & Maintenance tools:**
 
 - [x] CI/CD pipelines: ``.github/workflows`` for GitHub
 - [x] Local CI/CD pipelines: GitHub Actions using ``github act``
-- [x] GitHub Actions for deploying to GitHub Pages with mkdocs gh-deploy
-- [x] Dependabot for automatic dependency and security updates
+- [ ] GitHub Actions for deploying to GitHub Pages with mkdocs gh-deploy
+- [ ] Dependabot for automatic dependency and security updates
 
 **Documentation tools:**
 
@@ -92,26 +93,38 @@ The following files are used in the contribution pipeline:
 - ``.github/dependabot.yml``: dependabot configuration file.
 - ``.gitignore``: contains the files to ignore in the project.
 
-### 1.1.  Local Prerequisites
+### 1.1. Local Prerequisites
 - This project installs everything needed using the `make` command. If you don't have `make`, you need to install it or use [uv](https://docs.astral.sh/uv/).
 
-
+### 1.2 Installation
 `git clone the repo
 cd stremio-addon-python-template`
 
-- Install dependencies with `make install` or `uv sync`
+- For development: Install dependencies with `make install-dev` or `uv sync --dev`
+- For production: Install dependencies with `make install` or `uv sync`
 
-### Usage
+### 1.3 Usage
 
 - Start the server: ``make run`` or with `uv run src/stremio_addon_python_template/main.py`
+- You can access the addon at http://127.0.0.1:7000/manifest.json
+- You can access the API at http://127.0.0.1:7000/docs
 
-Install in Stremio
+To use the addon in stremio for testing, you need to use cloudflare, or localtunnel or caddy because Stremio requires HTTPS.
+- Install once
+```
+wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
 
-Copy the URL from the terminal (e.g., http://127.0.0.1:7000/manifest.json).
+sudo dpkg -i cloudflared-linux-amd64.deb
+```
+- Run this everytime you need to access your addon using Stremio or any other app that requires HTTPS:
+`cloudflared tunnel --url http://localhost:7000`
 
-Open Stremio, paste the URL into the search bar, and press Enter to install the addon.
+This gives you a URL like https://random.trycloudflare.com/
+- Paste it in your browser first to make sure it works.
+- Open Stremio and add the Addon.
 
 #### Check the documentation
+You can check the documentation (website).
 
-## 2. Contributing
+## 2. Contributing (For developers)
 Check the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.

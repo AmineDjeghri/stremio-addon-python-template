@@ -3,8 +3,6 @@
 PACKAGE_NAME = src
 TEST_DIR = tests
 
-
-
 .PHONY: all help install run test lint format clean
 
 all: help
@@ -55,14 +53,18 @@ else
 endif
 
 install:install-uv ## Install dependencies using uv
-	@echo "Installing dependencies..."
+	@echo "Installing dependencies (required and docs)..."
 	uv sync
+	@echo "${GREEN}Dependencies installed.${NC}"
+
+install-dev: install-uv ## Install dev dependencies using uv
+	@echo "${YELLOW}=========> Installing dev dependencies (required, dev and docs)...${NC}"
+	@$(UV) sync --dev
+	@echo "${GREEN}Dev dependencies installed.${NC}"
 
 run: ## Run the Stremio Addon (Dev Mode)
 	@echo "Starting server..."
 	uv run src/stremio_addon_python_template/main.py
-
-
 
 
 pre-commit-install:
@@ -144,3 +146,9 @@ deploy-doc-local: ## Deploy documentation locally
 deploy-doc-gh: ## Deploy documentation in github actions
 	@echo "${YELLOW}Deploying documentation in github actions..${NC}"
 	@$(UV) run mkdocs build && $(UV) run mkdocs gh-deploy
+
+
+######## Caddy ########
+caddy: ## Run Caddy
+	@echo "${YELLOW}Running Caddy...${NC}"
+	@caddy run --config Caddyfile --watch
