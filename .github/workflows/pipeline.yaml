@@ -30,8 +30,8 @@ jobs:
 #    if: github.ref == 'refs/heads/main'
 #    uses: ./.github/workflows/publish-wheel.yaml
 #
-#  github-pages:
-#    name: Deploy GitHub Pages
+  github-pages:
+    name: Deploy GitHub Pages
 #    needs: [publish-wheel]
-#    if: github.ref == 'refs/heads/main'
-#    uses: ./.github/workflows/deploy-docs.yaml
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/deploy-docs.yaml
