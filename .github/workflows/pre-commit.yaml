@@ -1,0 +1,20 @@
+name: Pre-commit
+
+on:
+  workflow_call:
+
+jobs:
+  pre-commit:
+    name: Pre-commit
+    runs-on: self-hosted
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v4
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/install-python-deps
+
+      - name: Run Pre-commit
+        shell: bash
+        run: |
+          make pre-commit
