@@ -23,3 +23,9 @@ settings, logger = initialize()
 
 def hello():
     logger.info("Hello World")
+
+
+# Get version from pyproject.toml
+from importlib.metadata import version
+
+__version__ = version("stremio-python-addon-template")

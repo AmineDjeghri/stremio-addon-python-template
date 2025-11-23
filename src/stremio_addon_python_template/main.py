@@ -1,25 +1,27 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from nicegui import ui
 
-from stremio_addon_python_template import settings, logger
+from stremio_addon_python_template import settings, logger, __version__
 
 # Stremio Addon Manifest - defines addon capabilities
 MANIFEST = {
     "id": settings.ADDON_ID,
-    "version": "1.0.0",
-    "name": "Python UV Template",
+    "version": __version__,
+    "name": "Stremio Python Addon Template",
     "description": "A sample addon built with Python, FastAPI and UV with Pydantic Settings",
     "logo": "https://dl.strem.io/addon-logo.png",
     "resources": ["stream", "catalog"],
     "types": ["movie", "series"],
-    "catalogs": [{"type": "movie", "id": "python_movies", "name": "Python Examples"}],
+    "catalogs": [
+        {"type": "movie", "id": "python_movies", "name": "Stremio Python Addon Template Catalog"}
+    ],
     "idPrefixes": ["tt"],
 }
 
-app = FastAPI(title="Stremio Python Addon", version="1.0.0")
+app = FastAPI(title="Stremio Python Addon Template", version=__version__)
 
 # CORS Middleware - required for Stremio web players
 app.add_middleware(
@@ -40,9 +42,13 @@ async def root():
 
 # NiceGUI Configuration Page (we use here ui.page instead of @app.get)
 @ui.page("/configure")
-def configure_page():
+def configure_page(request: Request):
     """Configuration page with NiceGUI interface."""
     logger.info("Configure page accessed.")
+
+    # Get the current host from the request to generate the correct manifest URL
+    base_url = str(request.url).replace("/configure", "")
+    manifest_url = f"{base_url}/manifest.json"
 
     with ui.card().classes("w-full max-w-md mx-auto mt-10 p-6"):
         ui.label("Stremio Addon Configuration").classes("text-2xl font-bold mb-4")
@@ -72,10 +78,8 @@ def configure_page():
         ui.separator().classes("my-4")
 
         ui.label("Installation").classes("text-lg font-semibold mb-2")
-        ui.label(
-            f"Add this addon to Stremio (change the localhost to your cloudflared address) :"
-        ).classes("text-sm text-gray-600 mb-2")
-        ui.code(f"http://127.0.0.1:{settings.PORT}/manifest.json").classes("w-full")
+        ui.label("Copy this URL and add it to Stremio:").classes("text-sm text-gray-600 mb-2")
+        ui.code(manifest_url).classes("w-full")
 
 
 @app.get("/manifest.json")
@@ -145,6 +149,7 @@ ui.run_with(app, storage_secret="stremio-addon-secret-key")
 # Entry Point
 if __name__ == "__main__":
     logger.info(f"Starting server with ADDON_ID: {settings.ADDON_ID}")
+    logger.info(f"Addon version is {__version__}")
     logger.info(f"Addon running on http://127.0.0.1:{settings.PORT}")
     logger.info(f"Install URL: http://127.0.0.1:{settings.PORT}/manifest.json")
     uvicorn.run(
