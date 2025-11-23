@@ -51,7 +51,7 @@ def configure_page(request: Request):
     manifest_url = f"{base_url}/manifest.json"
 
     with ui.card().classes("w-full max-w-md mx-auto mt-10 p-6"):
-        ui.label("Stremio Python Addon Template Configuration").classes("text-2xl font-bold mb-4")
+        ui.label("Stremio Addon Configuration").classes("text-2xl font-bold mb-4")
         ui.label("Configure your addon settings below:").classes("text-gray-600 mb-4")
 
         api_key_input = ui.input(
