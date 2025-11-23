@@ -61,10 +61,10 @@ Tests (tests): Unit tests for API endpoints using pytest.
 - [x] pre-commit hooks: use ``ruff`` to ensure the code quality & ``detect-secrets`` to scan the secrets in the code.
 - [x] Logging using loguru (with colors)
 - [x] Pytest for unit tests
-- [x] Dockerized project (Dockerfile) both for development and production
+- [ ] Dockerized project (Dockerfile) both for development and production
 - [x] NiceGUI configuration page for easy addon setup
-- [ ] (need to separate the files) Make commands to handle everything for you: install, run, test
-- [ ] Caddy for HTTPS (Stremio requires HTTPS)
+- [x] Make commands to handle everything for you: install, run, test
+- [x] Cloudflared for HTTPS (Stremio requires HTTPS)
 
 **CI/CD & Maintenance tools:**
 
@@ -101,7 +101,7 @@ The following files are used in the contribution pipeline:
 `git clone the repo
 cd stremio-addon-python-template`
 
-- For development: Install dependencies with `make install-dev` or `uv sync --dev`
+- For development: Install dev dependencies with `make install-dev` or `uv sync --dev`
 - For production: Install dependencies with `make install` or `uv sync`
 
 ### 1.3 Usage
