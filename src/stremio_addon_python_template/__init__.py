@@ -19,3 +19,7 @@ def initialize():
 
 
 settings, logger = initialize()
+
+
+def hello():
+    logger.info("Hello World")

@@ -12,10 +12,9 @@ class Settings(BaseSettings):
 
     # Core Addon Settings
     PORT: int = 7000
-    ADDON_ID: str = "community.example.pythonuvtemplate"
+    ADDON_ID: str = "community.example.stremioaddonpythontemplate"
 
     # Logging
-    LOG_LEVEL: str = "INFO"
     DEV_MODE: bool = False
 
     # Example for external scraping, e.g., an API Key

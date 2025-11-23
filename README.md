@@ -31,9 +31,8 @@
   * [🧠 Features](#-features)
   * [1. Getting started](#1-getting-started)
     * [1.1.  Local Prerequisites](#11-local-prerequisites)
-* [This runs: uv sync](#this-runs-uv-sync)
+    * [Usage](#usage)
       * [Check the documentation](#check-the-documentation)
-    * [1.3 ⚙️ Steps for Installation (Contributors and maintainers)](#13--steps-for-installation-contributors-and-maintainers)
   * [2. Contributing](#2-contributing)
 <!-- TOC -->
 
@@ -94,27 +93,17 @@ The following files are used in the contribution pipeline:
 - ``.gitignore``: contains the files to ignore in the project.
 
 ### 1.1.  Local Prerequisites
-- Python 3.11
+- This project installs everything needed using the `make` command. If you don't have `make`, you need to install it or use [uv](https://docs.astral.sh/uv/).
 
 
-git clone the repo
-cd stremio-addon-python-template
+`git clone the repo
+cd stremio-addon-python-template`
 
-Install dependencies:
+- Install dependencies with `make install` or `uv sync`
 
-make install
-# This runs: uv sync
+### Usage
 
-
-Usage
-
-Start the server (Development)
-
-``make run``
-
-
-OR manually: uv run uvicorn stremio_addon.main:app --reload --port 7000
-
+- Start the server: ``make run`` or with `uv run src/stremio_addon_python_template/main.py`
 
 Install in Stremio
 
@@ -123,11 +112,6 @@ Copy the URL from the terminal (e.g., http://127.0.0.1:7000/manifest.json).
 Open Stremio, paste the URL into the search bar, and press Enter to install the addon.
 
 #### Check the documentation
-
-You can check the documentation (website), or the ``notebook.ipynb``.
-
-### 1.3 ⚙️ Steps for Installation (Contributors and maintainers)
-Check the [CONTRIBUTING.md](CONTRIBUTING.md) file for installation instructions
 
 ## 2. Contributing
 Check the [CONTRIBUTING.md](CONTRIBUTING.md) file for more information.

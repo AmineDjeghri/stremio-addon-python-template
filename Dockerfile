@@ -18,6 +18,7 @@ WORKDIR /app
 
 # Copy the source code into the container (the dockerfile is in a folder namled docker)
 COPY . .
+COPY .env.example .env
 
 # Install dependencies using uv
 # we didn't add a non root user because the install-dev uses root for tesseract

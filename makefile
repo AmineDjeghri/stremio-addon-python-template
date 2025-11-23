@@ -119,6 +119,11 @@ clear_ci_cache: ## Clear GitHub local caches
 
 
 ######## Tests ########
+######## Tests ########
+test-installation:
+	@echo "${YELLOW}=========> Testing installation...${NC}"
+	@$(UV) run --directory . hello
+
 test: ## Run tests with pytest
 	@echo "${YELLOW}Running tests...${NC}"
 	@$(UV) run pytest tests
@@ -127,11 +132,15 @@ test: ## Run tests with pytest
 ######## Builds ########
 # This build the documentation based on current code 'src/' and 'docs/' directories
 # This is to run the documentation locally to see how it looks
+build-package: ## build package (wheel)
+	@echo "${YELLOW}=========> Building python package and wheel...${NC}"
+	@$(UV) build
+
 deploy-doc-local: ## Deploy documentation locally
 	@echo "${YELLOW}Deploying documentation locally...${NC}"
-	@$(UV) run mkdocs serve
+	@$(UV) run mkdocs build && $(UV) run mkdocs serve
 
 # Deploy it to the gh-pages branch in your GitHub repository (you need to setup the GitHub Pages in github settings to use the gh-pages branch)
 deploy-doc-gh: ## Deploy documentation in github actions
 	@echo "${YELLOW}Deploying documentation in github actions..${NC}"
-	@$(UV) run mkdocs gh-deploy
+	@$(UV) run mkdocs build && $(UV) run mkdocs gh-deploy
