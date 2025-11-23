@@ -1,0 +1,23 @@
+name: Build Package
+
+on:
+  workflow_call:
+
+jobs:
+  build-package:
+    name: Build Package
+    runs-on: self-hosted
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/install-python-deps
+
+
+      - name: Build Package
+        shell: bash
+        run: |
+          make build-package
