@@ -70,8 +70,8 @@ Tests (tests): Unit tests for API endpoints using pytest.
 
 - [x] CI/CD pipelines: ``.github/workflows`` for GitHub
 - [x] Local CI/CD pipelines: GitHub Actions using ``github act``
-- [ ] GitHub Actions for deploying to GitHub Pages with mkdocs gh-deploy
-- [ ] Dependabot for automatic dependency and security updates
+- [x] GitHub Actions for deploying to GitHub Pages with mkdocs gh-deploy
+- [x] Dependabot for automatic dependency and security updates
 
 **Documentation tools:**
 
