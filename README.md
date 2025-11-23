@@ -28,6 +28,7 @@
 
 <!-- TOC -->
   * [About The Project](#about-the-project)
+    * [Key Components](#key-components)
   * [👥  Authors](#-authors)
   * [🧠 Features](#-features)
   * [1. Getting started](#1-getting-started)
@@ -41,19 +42,31 @@
 
 ## About The Project
 
-There are many Stremio addon templates, but most are focused on Node.js. This template brings the power of Python and FastAPI to the ecosystem, prioritizing speed and reliability.
+There are many Stremio addon templates, but most are focused on Node.js. This template brings the power of **Python**, **FastAPI**, and **UV** to the ecosystem, prioritizing speed, reliability, and modern development practices.
 
-This project is structured as an application (not a reusable library package), designed to run as a web service implementing the Stremio Addon Protocol.
+This is a **production-ready template** designed to be cloned and customized for your specific addon needs. It's structured as a Python package that runs as a web service implementing the **Stremio Addon Protocol**.
 
-It contains the following key components:
+### Key Components
 
-The Stremio Addon (src/stremio_addon): Contains the FastAPI server logic for handling Stremio protocol requests (/manifest.json, /stream/{...}.json, etc.).
+- **Stremio Addon** (`src/stremio_addon_python_template/`): FastAPI server implementing the Stremio protocol
+  - `/manifest.json` - Addon capabilities and metadata
+  - `/catalog/{type}/{id}.json` - Content catalogs
+  - `/stream/{type}/{id}.json` - Stream sources
+  - `/configure` - NiceGUI-powered configuration interface
 
-Tests (tests): Unit tests for API endpoints using pytest.
+- **Configuration UI** (`/configure`): Interactive web interface built with NiceGUI
+  - User-friendly addon configuration
+  - Dynamic manifest URL generation (works with both localhost and cloudflared)
+  - No manual URL editing required
+
+- **Tests** (`tests/`): Comprehensive unit tests using pytest
+  - API endpoint testing
+  - Manifest validation
+  - Stream response verification
 
 
 ## 👥  Authors
-- (Author) Amine Djeghri
+- (Author) Amine DJEGHRI
 
 ## 🧠 Features
 
