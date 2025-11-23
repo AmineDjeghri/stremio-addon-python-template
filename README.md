@@ -30,10 +30,11 @@
   * [👥  Authors](#-authors)
   * [🧠 Features](#-features)
   * [1. Getting started](#1-getting-started)
-    * [1.1.  Local Prerequisites](#11-local-prerequisites)
-    * [Usage](#usage)
+    * [1.1. Local Prerequisites](#11-local-prerequisites)
+    * [1.2 Installation](#12-installation)
+    * [1.3 Usage](#13-usage)
       * [Check the documentation](#check-the-documentation)
-  * [2. Contributing](#2-contributing)
+  * [2. Contributing (For developers)](#2-contributing-for-developers)
 <!-- TOC -->
 
 
