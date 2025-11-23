@@ -1,0 +1,22 @@
+name: Deploy GitHub Pages
+
+on:
+  workflow_call:
+
+jobs:
+  deploy-github-pages:
+    name: Deploy GitHub Pages
+    runs-on: self-hosted
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/install-python-deps
+
+      - name: Deploy Docs
+        shell: bash
+        run: |
+          make deploy-doc-gh
