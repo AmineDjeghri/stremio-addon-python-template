@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  workflow_call:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: self-hosted
+    steps:
+      - name: Check Out
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Python Dependencies
+        uses: ./.github/actions/install-python-deps
+
+      - name: Run tests
+        shell: bash
+        run: |
+          make test
+
