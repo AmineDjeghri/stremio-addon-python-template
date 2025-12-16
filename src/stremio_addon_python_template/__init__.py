@@ -5,6 +5,8 @@ import sys
 
 from loguru import logger as loguru_logger
 
+if "stremio-addon-python-template" not in os.getcwd().split(os.sep)[-1]:  
+    raise Exception(f"Please run the library from the root directory. Current directory: {os.getcwd()}")
 
 def initialize():
     settings = Settings()
