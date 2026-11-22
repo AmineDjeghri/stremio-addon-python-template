@@ -1,5 +1,15 @@
-.venv/
-*.pyc
-__pycache__/
-*.log
-*.sqlite3
+# Allowlist: only what the image installs (secrets and local files stay out)
+*
+!Makefile
+!pyproject.toml
+!uv.lock
+!README.md
+!makefiles/
+!makefiles/**
+!src/
+!src/**
+**/__pycache__/
+**/*.pyc
+**/.env*
+**/*.pem
+**/*.key
