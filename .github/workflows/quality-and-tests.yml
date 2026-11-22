@@ -43,12 +43,6 @@ jobs:
     name: "Full software validation (test-all)"
     runs-on: ubuntu-26.04
     needs: pre-commit
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ["3.12", "3.13", "3.14.8"]
-    env:
-      UV_PYTHON: ${{ matrix.python-version }}
     timeout-minutes: 5
     steps:
       - name: Check Out

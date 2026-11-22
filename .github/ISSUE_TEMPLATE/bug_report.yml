@@ -51,9 +51,7 @@ body:
     attributes:
       label: Python version
       options:
-        - "3.12"
-        - "3.13"
-        - "3.14"
+        - "3.14.7"
         - "Other"
     validations:
       required: true
