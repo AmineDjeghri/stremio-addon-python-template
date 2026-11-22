@@ -1,0 +1,81 @@
+# =============================================================================
+# Reusable Workflow — 👷 Quality Check & Tests
+# =============================================================================
+# Shared by: ci.yml and release.yml
+# Runs pre-commit first, then tests sequentially.
+# =============================================================================
+name: "👷 Quality Check & Tests"
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+
+  pre-commit:
+    name: "🧹 Pre-commit"
+    runs-on: ubuntu-26.04
+    timeout-minutes: 5
+    steps:
+      - name: Check Out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Install Python Dependencies
+        uses: $/.github/actions/install-python-deps
+        with:
+          profile: tools
+
+      - name: Run Pre-commit
+        id: pre_commit
+        shell: bash
+        run: |
+          echo "::group::Pre-commit output"
+          make pre-commit
+          echo "::endgroup::"
+
+
+  tests:
+    name: "Full software validation (test-all)"
+    runs-on: ubuntu-26.04
+    needs: pre-commit
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14.8"]
+    env:
+      UV_PYTHON: ${{ matrix.python-version }}
+    timeout-minutes: 5
+    steps:
+      - name: Check Out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+
+      - name: Install Python Dependencies
+        uses: $/.github/actions/install-python-deps
+
+      - name: make test-all
+        id: software
+        shell: bash
+        run: |
+          echo "::group::Tests output"
+          make test-all
+          echo "::endgroup::"
+
+      - name: Report comprehensive validation status
+        if: always()
+        env:
+          SOFTWARE_RESULT: ${{ steps.software.outcome }}
+        run: |
+          if [ "$SOFTWARE_RESULT" = success ]; then
+            echo 'All existing software suites passed. This template has no integration suite yet.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Full software validation is incomplete: make test-all failed or did not run. A focused/local-only pass is insufficient.' >> "$GITHUB_STEP_SUMMARY"
+          fi

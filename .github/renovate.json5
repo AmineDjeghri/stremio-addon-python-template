@@ -1,0 +1,11 @@
+// Renovate configuration. The shared base (managers, grouping, release-age cooldown,
+// badges) lives in https://github.com/AmineDjeghri/renovate-config (default.json5).
+// Rules below are repo-specific and override the shared ones (later rules win).
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: ["github>AmineDjeghri/renovate-config:default.json5"],
+
+  packageRules: [
+    // ---- Repo-specific rules (keep last) ----
+  ],
+}
