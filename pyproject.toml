@@ -1,6 +1,6 @@
 [project]
 name = "stremio-addon-python-template"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Stremio addon template built with FastAPI and uv."
 readme = "README.md"
 requires-python = "==3.14.7"
