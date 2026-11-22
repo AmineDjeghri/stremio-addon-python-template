@@ -1,7 +1,7 @@
 # Stremio Addon Python Template
 
 [![Stremio](https://img.shields.io/badge/Stremio-Addon-7B5CFA?logo=stremio&logoColor=white)](https://www.stremio.com/)
-[![python](https://img.shields.io/badge/python-3.14.7-blue?logo=python)](https://www.python.org/downloads/)
+[![python](https://img.shields.io/python/required-version-toml?tomlFilePath=https%3A%2F%2Fraw.githubusercontent.com%2FAmineDjeghri%2Fstremio-addon-python-template%2Fmain%2Fpyproject.toml&logo=python)](https://www.python.org/downloads/)
 [![Style: Ruff](https://img.shields.io/badge/style-ruff-41B5BE?style=flat)](https://github.com/astral-sh/ruff)
 [![mkdocs-material](https://img.shields.io/badge/Material_for_MkDocs-526CFE?logo=materialformkdocs&logoColor=white)](https://squidfunk.github.io/mkdocs-material/)
 [![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=fff)](https://www.docker.com/)

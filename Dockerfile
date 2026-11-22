@@ -1,4 +1,6 @@
 # Production image: `make docker-prod` builds and runs it on port 7000.
+# Keep PYTHON_VERSION equal to `requires-python` in pyproject.toml; Renovate proposes both in its
+# "python runtime" group.
 ARG PYTHON_VERSION=3.14.7
 FROM python:${PYTHON_VERSION}-slim
 
