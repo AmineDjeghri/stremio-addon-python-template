@@ -9,7 +9,7 @@ implementing the Stremio addon protocol, managed with uv, with pydantic-settings
 `settings.py`, tests, a documentation site (properdocs / MkDocs Material) and semantic-release.
 A release is a GitHub release (wheel + sdist) plus the documentation on GitHub Pages; the addon
 runs with `make run` or the Docker image. Tooling is synced from python-package-template
-(`docs/developer/6.fork.md`). Developer docs: `docs/developer/`.
+(`docs/developer/6.template.md`). Developer docs: `docs/developer/`.
 
 ## Commands
 
