@@ -1320,8 +1320,8 @@ This is an application, not a library: runtime, dev and docs dependencies all us
 <code>uv.lock</code> locks the resolved versions. Review every Renovate pull request before merging; after merging
 one, wait for the others to rebase.</p>
 <ol>
-<li>Python is pinned to one version (<code>requires-python</code> in <code>pyproject.toml</code>), the same as the Docker image
-   (<code>PYTHON_VERSION</code> in <code>Dockerfile</code>). CI runs <code>make test-all</code> on that version only.</li>
+<li>Python is pinned to one version (<code>requires-python</code> in <code>pyproject.toml</code>), the same as the Docker
+   image (<code>PYTHON_VERSION</code> in <code>Dockerfile</code>). CI runs <code>make test-all</code> on that version only.</li>
 <li>Renovate proposes a new pinned <code>requires-python</code> after dependency dashboard approval. Python
    Docker updates share the runtime update group and also require approval; keep both versions
    equal.</li>
